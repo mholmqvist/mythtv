@@ -144,7 +144,10 @@ QString DLNAProfileName(const QString &mimeType, const QSize resolution,
         else // Europe standard (DVB)
         {
             if (vidCodec == "H264" || isHD) // All HD is AVC with DVB
+            {
                 sProfileName = "AVC_TS_EU_ISO";
+                sProfileName = "MPEG_TS_SD_EU_ISO";
+            }
             else // if (videoCodec == "MPEG2VIDEO")
                 sProfileName = "MPEG_TS_SD_EU_ISO";
         }

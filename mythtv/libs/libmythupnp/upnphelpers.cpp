@@ -89,7 +89,7 @@ QString resDurationFormat(std::chrono::milliseconds msec)
     // S = Seconds (2 digits, 0 prefix)
     // FS = Fractional Seconds (milliseconds)
     QTime time = QTime::fromMSecsSinceStartOfDay(msec.count());
-    return time.toString("H:mm:ss:zzz");
+    return time.toString("H:mm:ss.zzz");
 }
 
 };
@@ -146,6 +146,7 @@ QString DLNAProfileName(const QString &mimeType, const QSize resolution,
             if (vidCodec == "H264" || isHD) // All HD is AVC with DVB
             {
                 sProfileName = "AVC_TS_EU_ISO";
+                sProfileName = "AVC_TS_HD_50_AC3"; // TODO: Can this work? https://wiki.serviio.org/doku.php?id=sony_bravia_tv 
                 sProfileName = "MPEG_TS_SD_EU_ISO";
             }
             else // if (videoCodec == "MPEG2VIDEO")

@@ -1057,6 +1057,9 @@ bool UPnpCDSTv::LoadRecordings(const UPnpCDSRequest* pRequest,
         URIBase.setHost(m_mapBackendIp[sHostName]);
         URIBase.setPort(m_mapBackendPort[sHostName]);
 
+        if (nEpisode > 0)  //Add episode to title of > 0
+            sTitle = sTitle + " e" + QString::number(nEpisode).rightJustified(2, '0');;  
+
         CDSObject *pItem = CDSObject::CreateVideoItem( CreateIDString(sRequestId, "Recording", nRecordedId),
                                                        sTitle,
                                                        pRequest->m_sParentId );
@@ -1212,6 +1215,10 @@ bool UPnpCDSTv::LoadRecordings(const UPnpCDSRequest* pRequest,
 
         QSize resolution = QSize(nVideoWidth, nVideoHeight);
 
+        //
+        // AVC_TS_MP_HD_AC3 -rename-> AVC_TS_HD_50_AC3 - video/vnd.dlna.mpeg-tts
+        // https://wiki.serviio.org/doku.php?id=sony_bravia_tv
+        //
         // Attempt to guess the container if the information is missing from
         // the database
         if (sContainer.isEmpty())
